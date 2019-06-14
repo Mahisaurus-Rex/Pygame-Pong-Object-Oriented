@@ -42,14 +42,6 @@ while not done:
     if pressed[pygame.K_DOWN]:
         p2.down()
 
-    #collision
-    p1_body=pygame.draw.rect(screen, (255,255,255), pygame.Rect(p1.x,p1.y,paddle_width,paddle_height))
-    p2_body=pygame.draw.rect(screen, (255,255,255), pygame.Rect(p2.x,p2.y,paddle_width,paddle_height))
-    ball_body=pygame.draw.rect(screen, (255,255,255), pygame.Rect(ball.x,ball.y,paddle_width,paddle_width))
-
-    if ball_body.colliderect(p1_body) or ball_body.colliderect(p2_body):
-        ball.col()
-
     #make players and ball
     screen.fill((0,0,0))
     score = myfont.render(str(p1_score)+" "+str(p2_score), True, (255,255,255))

@@ -21,16 +21,16 @@ class Paddle:
         self.x=x
         self.y=y
         self.player=pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.x,self.y,paddle_width,paddle_height))
+        self.rect=pygame.Rect(self.x,self.y,paddle_width,paddle_height)
     def draw(self):
         self.player=pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.x,self.y,paddle_width,paddle_height))
+        self.rect=pygame.Rect(self.x,self.y,paddle_width,paddle_height)
     def up(self):
         if self.y>0:
-            self.y-=2
+            self.y-=3
     def down(self):
         if self.y<screen.get_height()-200: 
-            self.y+=2
-    def body(self):
-        return pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.x,self.y,paddle_width,paddle_height))
+            self.y+=3
 #define ball class
 class Ball:
     def __init__(self,x,y):
@@ -39,6 +39,7 @@ class Ball:
         self.slope_x=slope_x
         self.slope_y=slope_y
         self.ball=pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.x,self.y,paddle_width,paddle_width))
+        self.rect = pygame.Rect(self.x,self.y,paddle_width,paddle_width)
     def draw(self):
         #make ball movement
         self.x+=self.slope_x
@@ -56,7 +57,10 @@ class Ball:
             self.x,self.y=((screen.get_width())/2),((screen.get_height())/2)
             time.sleep(1)
         #collision
+        if self.rect.colliderect(p1.rect) or self.rect.colliderect(p2.rect):
+            self.col()
         self.player=pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.x,self.y,paddle_width,paddle_width))
+        self.rect = pygame.Rect(self.x,self.y,paddle_width,paddle_width)
     def col(self):
         self.slope_x*=-1
         if self.slope_y>0:
@@ -65,8 +69,6 @@ class Ball:
             self.slope_y=random.randint(1,3)
         self.x+=(self.slope_x*3)
         self.y+=self.slope_y
-    def body(self):
-        return pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.x,self.y,paddle_width,paddle_width))
 
 
 #set initial conditions
