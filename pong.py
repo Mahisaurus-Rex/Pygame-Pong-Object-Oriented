@@ -56,7 +56,7 @@ class Ball:
             self.x,self.y=((screen.get_width())/2),((screen.get_height())/2)
             time.sleep(1)
         #collision
-        if self.ball.colliderect(p1.col()) or self.ball.colliderect(p2.col()):
+        if self.col(p1) or self.col(p2):
             self.slope_x*=-1
             if self.slope_y>0:
                 self.slope_y=random.randint(1,3) * -1
@@ -65,6 +65,9 @@ class Ball:
             self.x+=(self.slope_x*3)
             self.y+=self.slope_y
         self.player=pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.x,self.y,paddle_width,paddle_width))
+    def col(self, obj):
+        if self.x>obj.x-paddle_width and obj.y+paddle_height<self.y<obj.y:
+            return True
 
 
 #set initial conditions
